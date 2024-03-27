@@ -31,4 +31,14 @@ public class JobController {
                 HttpStatus.CREATED
         );
     }
+
+    // Get Job By Id REST API
+    @GetMapping("/{id}")
+    public ResponseEntity<JobDto> getJobById(
+            @PathVariable("id") Long jobDtoId
+    ) {
+        JobDto jobDto = jobService.getJobById(jobDtoId);
+
+        return ResponseEntity.ok(jobDto);
+    }
 }
