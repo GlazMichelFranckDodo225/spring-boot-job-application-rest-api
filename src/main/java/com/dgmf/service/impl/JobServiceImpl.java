@@ -21,18 +21,15 @@ public class JobServiceImpl implements JobService {
     public List<JobDto> findAllJobs() {
         List<Job> jobs = jobRepository.findAll();
         List<JobDto> jobDtos = jobs.stream()
-                .map(job -> jobMapper.mapToDto(job))
+                .map(jobMapper::mapToDto)
                 .collect(Collectors.toList());
 
         return jobDtos;
     }
 
     @Override
-    public JobDto createJob(JobDto jobDto) {
+    public void createJob(JobDto jobDto) {
         Job job = jobMapper.mapToJob(jobDto);
-        Job savedJob = jobRepository.save(job);
-        JobDto returnedJobDto = jobMapper.mapToDto(savedJob);
-
-        return returnedJobDto;
+        jobRepository.save(job);
     }
 }

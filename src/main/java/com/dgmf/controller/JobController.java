@@ -15,15 +15,19 @@ import java.util.List;
 public class JobController {
     private final JobService jobService;
 
+    // Find All Jobs REST API
     @GetMapping
     public ResponseEntity<List<JobDto>> findAllJobs() {
         return ResponseEntity.ok(jobService.findAllJobs());
     }
 
+    // Create Job REST API
     @PostMapping
-    public ResponseEntity<JobDto> createJob(@RequestBody JobDto jobDto) {
+    public ResponseEntity<String> createJob(@RequestBody JobDto jobDto) {
+        jobService.createJob(jobDto);
+
         return new ResponseEntity<>(
-                jobService.createJob(jobDto),
+                "Job Added Successfully",
                 HttpStatus.CREATED
         );
     }
