@@ -37,8 +37,6 @@ public class JobController {
     public ResponseEntity<JobDto> getJobById(
             @PathVariable("id") Long jobDtoId
     ) {
-        JobDto jobDto = jobService.getJobById(jobDtoId);
-
-        return ResponseEntity.ok(jobDto);
+        return ResponseEntity.ok(jobService.getJobById(jobDtoId));
     }
 }

@@ -40,7 +40,7 @@ public class JobServiceImpl implements JobService {
     public JobDto getJobById(Long jobId) {
         Job job = jobRepository.findById(jobId)
                 .orElseThrow(() -> new RuntimeException("Job with Id " +
-                        jobId + " Not Found !"));
+                jobId + " Not Found !"));;
 
         return jobMapper.mapToDto(job);
     }
