@@ -9,4 +9,5 @@ public interface JobService {
     List<JobDto> findAllJobs();
     void createJob(JobDto jobDto);
     JobDto getJobById(Long jobDtoId);
+    Boolean deleteJobById(Long jobDtoId);
 }

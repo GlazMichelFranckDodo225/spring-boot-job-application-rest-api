@@ -6,12 +6,9 @@ import com.dgmf.mapper.JobMapper;
 import com.dgmf.repository.JobRepository;
 import com.dgmf.service.JobService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
@@ -37,11 +34,31 @@ public class JobServiceImpl implements JobService {
     }
 
     @Override
-    public JobDto getJobById(Long jobId) {
-        Job job = jobRepository.findById(jobId)
-                .orElseThrow(() -> new RuntimeException("Job with Id " +
-                jobId + " Not Found !"));;
+    public JobDto getJobById(Long jobDtoId) {
+        List<Job> jobs = jobRepository.findAll();
 
-        return jobMapper.mapToDto(job);
+        for(Job job: jobs) {
+            if(job.getId().equals(jobDtoId)) {
+                JobDto jobDto = jobMapper.mapToDto(job);
+
+                return jobDto;
+            }
+        }
+
+        return null;
+    }
+
+    @Override
+    public Boolean deleteJobById(Long jobDtoId) {
+        List<Job> jobs = jobRepository.findAll();
+        for(Job job: jobs) {
+            if(job.getId().equals(jobDtoId)) {
+                jobRepository.deleteById(job.getId());
+
+                return true;
+            }
+        }
+
+        return false;
     }
 }

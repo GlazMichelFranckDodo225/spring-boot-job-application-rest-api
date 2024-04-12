@@ -37,6 +37,27 @@ public class JobController {
     public ResponseEntity<JobDto> getJobById(
             @PathVariable("id") Long jobDtoId
     ) {
-        return ResponseEntity.ok(jobService.getJobById(jobDtoId));
+        JobDto jobDto = jobService.getJobById(jobDtoId);
+        if(jobDto != null) return
+                ResponseEntity.ok(jobService.getJobById(jobDtoId));
+
+        return new ResponseEntity<>(HttpStatus.NOT_FOUND);
     }
+
+    // Delete Job By Id REST API
+    @DeleteMapping("/{id}")
+    public ResponseEntity<String> deleteJobId(
+            @PathVariable("id") Long jobDtoId
+    ) {
+        Boolean deleted = jobService.deleteJobById(jobDtoId);
+
+        if(deleted) {
+            return new ResponseEntity<>(
+                    "Job Deleted Successfully",
+                    HttpStatus.OK);
+        }
+
+        return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+    }
+
 }
