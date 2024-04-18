@@ -60,4 +60,15 @@ public class JobController {
         return new ResponseEntity<>(HttpStatus.NOT_FOUND);
     }
 
+    // Update Job By Id REST API
+    @PutMapping("/{id}")
+    public ResponseEntity<String> updateJobById(
+            @PathVariable("id") Long jobDtoId, @RequestBody JobDto jobDto
+    ) {
+        Boolean updated = jobService.updateJobById(jobDtoId, jobDto);
+
+        if(updated) return ResponseEntity.ok("Job Updated Successfully");
+
+        return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+    }
 }

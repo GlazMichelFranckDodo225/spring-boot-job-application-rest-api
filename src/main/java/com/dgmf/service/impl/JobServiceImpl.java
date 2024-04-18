@@ -61,4 +61,24 @@ public class JobServiceImpl implements JobService {
 
         return false;
     }
+
+    @Override
+    public Boolean updateJobById(Long jobDtoId, JobDto jobDto) {
+        List<Job> jobs = jobRepository.findAll();
+        for(Job job: jobs) {
+            if(job.getId().equals(jobDtoId)) {
+                job.setTitle(jobDto.getTitle());
+                job.setDescription(jobDto.getDescription());
+                job.setMinSalary(jobDto.getMinSalary());
+                job.setMaxSalary(jobDto.getMaxSalary());
+                job.setLocation(jobDto.getLocation());
+
+                jobRepository.save(job);
+
+                return true;
+            }
+        }
+
+        return false;
+    }
 }
