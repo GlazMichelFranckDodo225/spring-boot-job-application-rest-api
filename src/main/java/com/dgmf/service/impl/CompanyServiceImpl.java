@@ -39,11 +39,11 @@ public class CompanyServiceImpl implements CompanyService {
 
             company.setName(companyDto.getName());
             company.setDescription(companyDto.getDescription());
-            company.setJobs(
+            /*company.setJobs(
                     companyDto.getJobDtos().stream()
                             .map(jobMapper::mapToJob)
                             .collect(Collectors.toList())
-            );
+            );*/
 
             companyRepository.save(company);
 
@@ -55,7 +55,8 @@ public class CompanyServiceImpl implements CompanyService {
 
     @Override
     public void createCompany(CompanyDto companyDto) {
-
+        Company company = companyMapper.mapToCompany(companyDto);
+        companyRepository.save(company);
     }
 
     @Override

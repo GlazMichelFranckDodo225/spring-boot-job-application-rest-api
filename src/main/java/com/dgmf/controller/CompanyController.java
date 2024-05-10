@@ -31,4 +31,12 @@ public class CompanyController {
 
         return new ResponseEntity<>(HttpStatus.NOT_FOUND);
     }
+
+    // Add Company REST API
+    @PostMapping
+    public ResponseEntity<String> addCompany(@RequestBody CompanyDto companyDto) {
+        companyService.createCompany(companyDto);
+
+        return new ResponseEntity<>("Company Added Successfully !", HttpStatus.CREATED);
+    }
 }
