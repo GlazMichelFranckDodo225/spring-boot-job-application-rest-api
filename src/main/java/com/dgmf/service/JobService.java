@@ -10,6 +10,5 @@ public interface JobService {
     void createJob(JobDto jobDto);
     JobDto getJobById(Long jobDtoId);
     Boolean deleteJobById(Long jobDtoId);
-
     Boolean updateJobById(Long jobDtoId, JobDto jobDto);
 }

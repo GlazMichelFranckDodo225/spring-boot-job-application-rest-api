@@ -3,10 +3,9 @@ package com.dgmf.controller;
 import com.dgmf.dto.CompanyDto;
 import com.dgmf.service.CompanyService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -19,5 +18,17 @@ public class CompanyController {
     @GetMapping
     public ResponseEntity<List<CompanyDto>> getAllCompanies() {
         return ResponseEntity.ok(companyService.getAllCompanies());
+    }
+
+    // Update Company By Id REST API
+    @PutMapping("/{id}")
+    public ResponseEntity<String> updateCompanyById(
+            @PathVariable("id") Long companyDtoId, @RequestBody CompanyDto companyDto
+    ) {
+        Boolean updated = companyService.updateCompanyById(companyDtoId, companyDto);
+
+        if(updated) return ResponseEntity.ok("Company Updated Successfully");
+
+        return new ResponseEntity<>(HttpStatus.NOT_FOUND);
     }
 }
