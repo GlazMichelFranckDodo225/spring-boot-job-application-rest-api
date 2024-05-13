@@ -21,11 +21,10 @@ public class JobServiceImpl implements JobService {
     @Override
     public List<JobDto> findAllJobs() {
         List<Job> jobs = jobRepository.findAll();
-        List<JobDto> jobDtos = jobs.stream()
+
+        return jobs.stream()
                 .map(jobMapper::mapToDto)
                 .collect(Collectors.toList());
-
-        return jobDtos;
     }
 
     @Override
