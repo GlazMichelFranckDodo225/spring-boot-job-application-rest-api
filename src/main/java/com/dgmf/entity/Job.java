@@ -26,6 +26,8 @@ public class Job {
     private Long maxSalary;
     @Column(nullable = false)
     private String location;
+    @ManyToOne
+    private Company company;
     // Hibernate will automatically take the
     // current Timestamp of the JVM
     @CreationTimestamp

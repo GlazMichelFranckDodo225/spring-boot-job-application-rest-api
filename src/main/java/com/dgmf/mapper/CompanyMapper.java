@@ -2,20 +2,32 @@ package com.dgmf.mapper;
 
 import com.dgmf.dto.CompanyDto;
 import com.dgmf.entity.Company;
-import lombok.RequiredArgsConstructor;
-import org.modelmapper.ModelMapper;
-import org.springframework.stereotype.Component;
 
-@Component
-@RequiredArgsConstructor
+import java.util.stream.Collectors;
+
 public class CompanyMapper {
-    private final ModelMapper modelMapper;
-
-    public Company mapToCompany(CompanyDto companyDto) {
-        return modelMapper.map(companyDto, Company.class);
+    public static Company mapToCompany(CompanyDto companyDto) {
+        return Company.builder()
+                .name(companyDto.getName())
+                .description(companyDto.getDescription())
+                .jobs(
+                        companyDto.getJobDtos().stream()
+                                .map(JobMapper::mapToJob)
+                                .collect(Collectors.toList())
+                )
+                .build();
     }
 
-    public CompanyDto mapToCompanyDto(Company company) {
-        return modelMapper.map(company, CompanyDto.class);
+    public static CompanyDto mapToCompanyDto(Company company) {
+        return CompanyDto.builder()
+                .id(company.getId())
+                .name(company.getName())
+                .description(company.getDescription())
+                .jobDtos(
+                        company.getJobs().stream()
+                                .map(JobMapper::mapToDto)
+                                .collect(Collectors.toList())
+                )
+                .build();
     }
 }

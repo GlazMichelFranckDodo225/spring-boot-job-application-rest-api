@@ -19,8 +19,9 @@ public class Company {
     private Long id;
     private String name;
     private String description;
-    @OneToMany
+    @OneToMany(mappedBy = "company")
     private List<Job> jobs;
+    // private List<Review> reviews
     // Hibernate will automatically take the
     // current Timestamp of the JVM
     @CreationTimestamp

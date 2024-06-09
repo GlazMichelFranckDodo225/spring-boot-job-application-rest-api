@@ -1,7 +1,5 @@
 package com.dgmf.dto;
 
-import com.dgmf.entity.Job;
-import jakarta.persistence.OneToMany;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -14,5 +12,6 @@ public class CompanyDto {
     private Long id;
     private String name;
     private String description;
+    // private List<JobDto> jobDtos = new ArrayList<>();
     private List<JobDto> jobDtos;
 }

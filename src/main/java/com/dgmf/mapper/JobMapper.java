@@ -2,20 +2,31 @@ package com.dgmf.mapper;
 
 import com.dgmf.dto.JobDto;
 import com.dgmf.entity.Job;
-import lombok.RequiredArgsConstructor;
-import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Component;
 
 @Component
-@RequiredArgsConstructor
 public class JobMapper {
-    private final ModelMapper modelMapper;
-
-    public Job mapToJob(JobDto jobDto) {
-        return modelMapper.map(jobDto, Job.class);
+    public static JobDto mapToDto(Job job) {
+        return JobDto.builder()
+                .id(job.getId())
+                .title(job.getTitle())
+                .description(job.getDescription())
+                .minSalary(job.getMinSalary())
+                .maxSalary(job.getMaxSalary())
+                .location(job.getLocation())
+                .companyDto(CompanyMapper.mapToCompanyDto(job.getCompany()))
+                .build();
     }
 
-    public JobDto mapToDto(Job job) {
-        return modelMapper.map(job, JobDto.class);
+    public static Job mapToJob(JobDto jobDto) {
+        return Job.builder()
+                .id(jobDto.getId())
+                .title(jobDto.getTitle())
+                .description(jobDto.getDescription())
+                .minSalary(jobDto.getMinSalary())
+                .maxSalary(jobDto.getMaxSalary())
+                .location(jobDto.getLocation())
+                .company(CompanyMapper.mapToCompany(jobDto.getCompanyDto()))
+                .build();
     }
 }

@@ -13,4 +13,5 @@ public class JobDto {
     private Long minSalary;
     private Long maxSalary;
     private String location;
+    private CompanyDto companyDto;
 }

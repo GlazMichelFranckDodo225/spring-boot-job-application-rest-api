@@ -16,20 +16,19 @@ import java.util.stream.Collectors;
 @RequiredArgsConstructor
 public class JobServiceImpl implements JobService {
     private final JobRepository jobRepository;
-    private final JobMapper jobMapper;
 
     @Override
     public List<JobDto> findAllJobs() {
         List<Job> jobs = jobRepository.findAll();
 
         return jobs.stream()
-                .map(jobMapper::mapToDto)
+                .map(JobMapper::mapToDto)
                 .collect(Collectors.toList());
     }
 
     @Override
     public void createJob(JobDto jobDto) {
-        Job job = jobMapper.mapToJob(jobDto);
+        Job job = JobMapper.mapToJob(jobDto);
         jobRepository.save(job);
     }
 
@@ -44,8 +43,13 @@ public class JobServiceImpl implements JobService {
         }
         return null;*/
 
-        return jobMapper.mapToDto(
-                jobRepository.findById(jobDtoId).orElse(null)
+        return JobMapper.mapToDto(
+                jobRepository.findById(jobDtoId)
+                        .orElseThrow(
+                                () -> new RuntimeException(
+                                        "Job Not Found with Given Id : " + jobDtoId
+                                )
+                        )
         );
     }
 

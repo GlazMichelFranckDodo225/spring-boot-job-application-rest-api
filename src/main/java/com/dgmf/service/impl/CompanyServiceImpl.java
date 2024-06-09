@@ -17,17 +17,14 @@ import java.util.stream.Collectors;
 @RequiredArgsConstructor
 public class CompanyServiceImpl implements CompanyService {
     private final CompanyRepository companyRepository;
-    private final CompanyMapper companyMapper;
-    private final JobMapper jobMapper;
 
     @Override
     public List<CompanyDto> getAllCompanies() {
         List<Company> companies = companyRepository.findAll();
-        List<CompanyDto> companyDtos = companies.stream()
-                .map(companyMapper::mapToCompanyDto)
-                .collect(Collectors.toList());
 
-        return companyDtos;
+        return companies.stream()
+                .map(CompanyMapper::mapToCompanyDto)
+                .collect(Collectors.toList());
     }
 
     @Override
@@ -39,11 +36,11 @@ public class CompanyServiceImpl implements CompanyService {
 
             company.setName(companyDto.getName());
             company.setDescription(companyDto.getDescription());
-            /*company.setJobs(
+            company.setJobs(
                     companyDto.getJobDtos().stream()
-                            .map(jobMapper::mapToJob)
+                            .map(JobMapper::mapToJob)
                             .collect(Collectors.toList())
-            );*/
+            );
 
             companyRepository.save(company);
 
@@ -55,7 +52,7 @@ public class CompanyServiceImpl implements CompanyService {
 
     @Override
     public void createCompany(CompanyDto companyDto) {
-        Company company = companyMapper.mapToCompany(companyDto);
+        Company company = CompanyMapper.mapToCompany(companyDto);
         companyRepository.save(company);
     }
 
