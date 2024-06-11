@@ -1,6 +1,7 @@
 package com.dgmf.controller;
 
 import com.dgmf.dto.JobDto;
+import com.dgmf.entity.Company;
 import com.dgmf.entity.Job;
 import com.dgmf.service.JobService;
 import lombok.RequiredArgsConstructor;

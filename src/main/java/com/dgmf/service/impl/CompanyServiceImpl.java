@@ -29,18 +29,18 @@ public class CompanyServiceImpl implements CompanyService {
         Optional<Company> optionalCompany = companyRepository.findById(companyId);
 
         if(optionalCompany.isPresent()) {
-            // Company company = optionalCompany.get();
+            Company optionalUpdatedCompany = optionalCompany.get();
 
-            company.setName(company.getName());
-            company.setDescription(company.getDescription());
+            optionalUpdatedCompany.setName(company.getName());
+            optionalUpdatedCompany.setDescription(company.getDescription());
             /*company.setJobs(
                     company.getJobDtos().stream()
                             .map(JobMapper::mapToJob)
                             .collect(Collectors.toList())
             );*/
-            company.setJobs(company.getJobs());
+            optionalUpdatedCompany.setJobs(company.getJobs());
 
-            companyRepository.save(company);
+            companyRepository.save(optionalUpdatedCompany);
 
             return true;
         }

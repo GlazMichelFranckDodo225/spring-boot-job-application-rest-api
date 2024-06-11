@@ -1,5 +1,6 @@
 package com.dgmf.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -20,14 +21,19 @@ public class Company {
     private Long id;
     private String name;
     private String description;
+    @JsonIgnore
     @OneToMany(mappedBy = "company")
-    private List<Job> jobs = new ArrayList<>();
+    private List<Job> jobs;
+    //private List<Job> jobs = new ArrayList<>();
     // private List<Review> reviews
     // Hibernate will automatically take the
     // current Timestamp of the JVM
+    @JsonIgnore
     @CreationTimestamp
     private LocalDateTime creationDate;
+    @JsonIgnore
     @UpdateTimestamp
     private LocalDateTime lastUpdate;
+    @JsonIgnore
     private boolean isActive = true;
 }

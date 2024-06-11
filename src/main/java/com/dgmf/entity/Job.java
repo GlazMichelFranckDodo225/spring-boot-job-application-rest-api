@@ -1,5 +1,6 @@
 package com.dgmf.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -30,9 +31,12 @@ public class Job {
     private Company company;
     // Hibernate will automatically take the
     // current Timestamp of the JVM
+    @JsonIgnore
     @CreationTimestamp
     private LocalDateTime creationDate;
+    @JsonIgnore
     @UpdateTimestamp
     private LocalDateTime lastUpdate;
+    @JsonIgnore
     private boolean isActive = true;
 }
