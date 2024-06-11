@@ -1,6 +1,7 @@
 package com.dgmf.controller;
 
 import com.dgmf.dto.CompanyDto;
+import com.dgmf.entity.Company;
 import com.dgmf.service.CompanyService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -16,16 +17,18 @@ public class CompanyController {
     private final CompanyService companyService;
 
     @GetMapping
-    public ResponseEntity<List<CompanyDto>> getAllCompanies() {
+    // public ResponseEntity<List<CompanyDto>> getAllCompanies() {
+    public ResponseEntity<List<Company>> getAllCompanies() {
         return ResponseEntity.ok(companyService.getAllCompanies());
     }
 
     // Update Company By Id REST API
     @PutMapping("/{id}")
     public ResponseEntity<String> updateCompanyById(
-            @PathVariable("id") Long companyDtoId, @RequestBody CompanyDto companyDto
+            // @PathVariable("id") Long companyDtoId, @RequestBody CompanyDto companyDto
+            @PathVariable("id") Long companyId, @RequestBody Company company
     ) {
-        Boolean updated = companyService.updateCompanyById(companyDtoId, companyDto);
+        Boolean updated = companyService.updateCompanyById(companyId, company);
 
         if(updated) return ResponseEntity.ok("Company Updated Successfully");
 
@@ -34,8 +37,8 @@ public class CompanyController {
 
     // Add Company REST API
     @PostMapping
-    public ResponseEntity<String> addCompany(@RequestBody CompanyDto companyDto) {
-        companyService.createCompany(companyDto);
+    public ResponseEntity<String> addCompany(@RequestBody Company company) {
+        companyService.createCompany(company);
 
         return new ResponseEntity<>("Company Added Successfully !", HttpStatus.CREATED);
     }

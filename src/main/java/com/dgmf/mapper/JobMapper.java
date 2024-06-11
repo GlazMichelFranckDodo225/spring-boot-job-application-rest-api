@@ -2,10 +2,14 @@ package com.dgmf.mapper;
 
 import com.dgmf.dto.JobDto;
 import com.dgmf.entity.Job;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 
 @Component
+@RequiredArgsConstructor
 public class JobMapper {
+    private final JobDto jobDto;
+
     public static JobDto mapToDto(Job job) {
         return JobDto.builder()
                 .id(job.getId())

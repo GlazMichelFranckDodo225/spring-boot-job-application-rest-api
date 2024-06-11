@@ -9,6 +9,7 @@ import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 
 @Data @NoArgsConstructor @AllArgsConstructor @Builder
@@ -20,7 +21,7 @@ public class Company {
     private String name;
     private String description;
     @OneToMany(mappedBy = "company")
-    private List<Job> jobs;
+    private List<Job> jobs = new ArrayList<>();
     // private List<Review> reviews
     // Hibernate will automatically take the
     // current Timestamp of the JVM

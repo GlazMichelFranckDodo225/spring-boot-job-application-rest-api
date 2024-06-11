@@ -1,6 +1,7 @@
 package com.dgmf.controller;
 
 import com.dgmf.dto.JobDto;
+import com.dgmf.entity.Job;
 import com.dgmf.service.JobService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -17,14 +18,16 @@ public class JobController {
 
     // Find All Jobs REST API
     @GetMapping
-    public ResponseEntity<List<JobDto>> findAllJobs() {
+    //public ResponseEntity<List<JobDto>> findAllJobs() {
+    public ResponseEntity<List<Job>> findAllJobs() {
         return ResponseEntity.ok(jobService.findAllJobs());
     }
 
     // Create Job REST API
     @PostMapping
-    public ResponseEntity<String> createJob(@RequestBody JobDto jobDto) {
-        jobService.createJob(jobDto);
+    // public ResponseEntity<String> createJob(@RequestBody JobDto jobDto) {
+    public ResponseEntity<String> createJob(@RequestBody Job job) {
+        jobService.createJob(job);
 
         return new ResponseEntity<>(
                 "Job Added Successfully",
@@ -34,12 +37,14 @@ public class JobController {
 
     // Get Job By Id REST API
     @GetMapping("/{id}")
-    public ResponseEntity<JobDto> getJobById(
-            @PathVariable("id") Long jobDtoId
+    // public ResponseEntity<JobDto> getJobById(
+    public ResponseEntity<Job> getJobById(
+            @PathVariable("id") Long jobId
     ) {
-        JobDto jobDto = jobService.getJobById(jobDtoId);
-        if(jobDto != null) return
-                ResponseEntity.ok(jobService.getJobById(jobDtoId));
+        // JobDto jobDto = jobService.getJobById(jobDtoId);
+        Job job = jobService.getJobById(jobId);
+        if(job != null) return
+                ResponseEntity.ok(jobService.getJobById(jobId));
 
         return new ResponseEntity<>(HttpStatus.NOT_FOUND);
     }
@@ -47,9 +52,9 @@ public class JobController {
     // Delete Job By Id REST API
     @DeleteMapping("/{id}")
     public ResponseEntity<String> deleteJobId(
-            @PathVariable("id") Long jobDtoId
+            @PathVariable("id") Long jobId
     ) {
-        Boolean deleted = jobService.deleteJobById(jobDtoId);
+        Boolean deleted = jobService.deleteJobById(jobId);
 
         if(deleted) {
             return new ResponseEntity<>(
@@ -63,9 +68,10 @@ public class JobController {
     // Update Job By Id REST API
     @PutMapping("/{id}")
     public ResponseEntity<String> updateJobById(
-            @PathVariable("id") Long jobDtoId, @RequestBody JobDto jobDto
+            // @PathVariable("id") Long jobDtoId, @RequestBody JobDto jobDto
+            @PathVariable("id") Long jobId, @RequestBody Job job
     ) {
-        Boolean updated = jobService.updateJobById(jobDtoId, jobDto);
+        Boolean updated = jobService.updateJobById(jobId, job);
 
         if(updated) return ResponseEntity.ok("Job Updated Successfully");
 

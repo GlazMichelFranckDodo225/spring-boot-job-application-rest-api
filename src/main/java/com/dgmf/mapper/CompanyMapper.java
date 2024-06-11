@@ -2,10 +2,16 @@ package com.dgmf.mapper;
 
 import com.dgmf.dto.CompanyDto;
 import com.dgmf.entity.Company;
+import lombok.RequiredArgsConstructor;
+import org.springframework.stereotype.Component;
 
 import java.util.stream.Collectors;
 
+@Component
+@RequiredArgsConstructor
 public class CompanyMapper {
+    private final CompanyDto companyDto;
+
     public static Company mapToCompany(CompanyDto companyDto) {
         return Company.builder()
                 .name(companyDto.getName())

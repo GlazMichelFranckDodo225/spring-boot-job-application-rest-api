@@ -1,8 +1,6 @@
 package com.dgmf.service.impl;
 
-import com.dgmf.dto.JobDto;
 import com.dgmf.entity.Job;
-import com.dgmf.mapper.JobMapper;
 import com.dgmf.repository.JobRepository;
 import com.dgmf.service.JobService;
 import lombok.RequiredArgsConstructor;
@@ -10,7 +8,6 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
-import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
@@ -18,22 +15,23 @@ public class JobServiceImpl implements JobService {
     private final JobRepository jobRepository;
 
     @Override
-    public List<JobDto> findAllJobs() {
-        List<Job> jobs = jobRepository.findAll();
+    public List<Job> findAllJobs() {
 
-        return jobs.stream()
+        /*return jobs.stream()
                 .map(JobMapper::mapToDto)
-                .collect(Collectors.toList());
+                .collect(Collectors.toList());*/
+
+        return jobRepository.findAll();
     }
 
     @Override
-    public void createJob(JobDto jobDto) {
-        Job job = JobMapper.mapToJob(jobDto);
+    public void createJob(Job job) {
+        // Job job = JobMapper.mapToJob(jobDto);
         jobRepository.save(job);
     }
 
     @Override
-    public JobDto getJobById(Long jobDtoId) {
+    public Job getJobById(Long jobId) {
         /*List<Job> jobs = jobRepository.findAll();
         for(Job job: jobs) {
             if(job.getId().equals(jobDtoId)) {
@@ -43,14 +41,21 @@ public class JobServiceImpl implements JobService {
         }
         return null;*/
 
-        return JobMapper.mapToDto(
+        /*return JobMapper.mapToDto(
                 jobRepository.findById(jobDtoId)
                         .orElseThrow(
                                 () -> new RuntimeException(
                                         "Job Not Found with Given Id : " + jobDtoId
                                 )
                         )
-        );
+        );*/
+
+        return jobRepository.findById(jobId)
+                .orElseThrow(
+                        () -> new RuntimeException(
+                                "Job Not Found with Given Id : " + jobId
+                        )
+                );
     }
 
     @Override
@@ -73,7 +78,7 @@ public class JobServiceImpl implements JobService {
     }
 
     @Override
-    public Boolean updateJobById(Long jobDtoId, JobDto jobDto) {
+    public Boolean updateJobById(Long jobId, Job job) {
         /*List<Job> jobs = jobRepository.findAll();
         for(Job job: jobs) {
             if(job.getId().equals(jobDtoId)) {
@@ -85,16 +90,16 @@ public class JobServiceImpl implements JobService {
                 jobRepository.save(job);
                 return true;
             }*/
-        Optional<Job> optionalJob = jobRepository.findById(jobDtoId);
+        Optional<Job> optionalJob = jobRepository.findById(jobId);
 
         if(optionalJob.isPresent()) {
-            Job job = optionalJob.get();
+            // Job job = optionalJob.get();
 
-            job.setTitle(jobDto.getTitle());
-            job.setDescription(jobDto.getDescription());
-            job.setMinSalary(jobDto.getMinSalary());
-            job.setMaxSalary(jobDto.getMaxSalary());
-            job.setLocation(jobDto.getLocation());
+            job.setTitle(job.getTitle());
+            job.setDescription(job.getDescription());
+            job.setMinSalary(job.getMinSalary());
+            job.setMaxSalary(job.getMaxSalary());
+            job.setLocation(job.getLocation());
 
             jobRepository.save(job);
 
