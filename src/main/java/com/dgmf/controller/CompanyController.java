@@ -40,6 +40,25 @@ public class CompanyController {
     public ResponseEntity<String> addCompany(@RequestBody Company company) {
         companyService.createCompany(company);
 
-        return new ResponseEntity<>("Company Added Successfully !", HttpStatus.CREATED);
+        return new ResponseEntity<>(
+                "Company Added Successfully !", HttpStatus.CREATED
+        );
+    }
+
+    // Delete Company By Id REST API
+    @DeleteMapping("/{id}")
+    public ResponseEntity<String> deleteCompanyById(
+            @PathVariable("id") Long companyDtoId
+    ) {
+        Boolean isDeleted = companyService.deleteCompanyById(companyDtoId);
+
+        if(isDeleted) {
+            return ResponseEntity.ok("Company Deleted Successfully");
+        }
+
+        return new ResponseEntity<>(
+                "Company Not Found with Given Id : " + companyDtoId,
+                HttpStatus.NOT_FOUND
+        );
     }
 }

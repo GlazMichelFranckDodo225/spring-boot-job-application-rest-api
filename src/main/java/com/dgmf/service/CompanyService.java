@@ -11,8 +11,8 @@ public interface CompanyService {
     Boolean updateCompanyById(Long companyId, Company company);
     // void createCompany(CompanyDto companyDto);
     void createCompany(Company company);
-    // CompanyDto getCompanyById(Long companyDtoId);
-    Company getCompanyById(Long companyId);
     // Boolean deleteCompanyById(Long companyDtoId);
     Boolean deleteCompanyById(Long companyId);
+    // CompanyDto getCompanyById(Long companyDtoId);
+    Company getCompanyById(Long companyId);
 }
