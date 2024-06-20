@@ -67,6 +67,6 @@ public class CompanyServiceImpl implements CompanyService {
 
     @Override
     public Company getCompanyById(Long companyId) {
-        return null;
+        return companyRepository.findById(companyId).orElse(null);
     }
 }

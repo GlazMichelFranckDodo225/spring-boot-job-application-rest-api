@@ -61,4 +61,16 @@ public class CompanyController {
                 HttpStatus.NOT_FOUND
         );
     }
+
+    // Get Company By Id REST API
+    @GetMapping("/{id}")
+    public ResponseEntity<Company> getCompanyById(@PathVariable("id") Long companyId) {
+        Company company = companyService.getCompanyById(companyId);
+
+        if(company != null) {
+            return ResponseEntity.ok(company);
+        }
+
+        return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+    }
 }
