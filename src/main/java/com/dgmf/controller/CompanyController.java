@@ -48,16 +48,16 @@ public class CompanyController {
     // Delete Company By Id REST API
     @DeleteMapping("/{id}")
     public ResponseEntity<String> deleteCompanyById(
-            @PathVariable("id") Long companyDtoId
+            @PathVariable("id") Long companyId
     ) {
-        Boolean isDeleted = companyService.deleteCompanyById(companyDtoId);
+        Boolean isDeleted = companyService.deleteCompanyById(companyId);
 
         if(isDeleted) {
             return ResponseEntity.ok("Company Deleted Successfully");
         }
 
         return new ResponseEntity<>(
-                "Company Not Found with Given Id : " + companyDtoId,
+                "Company Not Found with Given Id : " + companyId,
                 HttpStatus.NOT_FOUND
         );
     }
