@@ -42,4 +42,17 @@ public class ReviewController {
         );
 
     }
+
+    // Get Review By Company Id REST API
+    @GetMapping("/{reviewId}")
+    public ResponseEntity<Review> getReviewByCompanyId(
+            @PathVariable("companyId") Long companyId,
+            @PathVariable("reviewId") Long reviewId
+    ) {
+        Review review = reviewService.getReviewByCompanyId(companyId, reviewId);
+
+        if(review == null) return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+
+        return ResponseEntity.ok(review);
+    }
 }
