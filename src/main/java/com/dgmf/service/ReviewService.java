@@ -8,4 +8,7 @@ public interface ReviewService {
     List<Review> getAllReviewsByCompanyId(Long companyId);
     Boolean addReviewByCompanyId(Long companyId, Review review);
     Review getReviewByCompanyId(Long companyId, Long reviewId);
+    Boolean updateReviewByCompanyId(
+            Long companyId, Long reviewId, Review review
+    );
 }

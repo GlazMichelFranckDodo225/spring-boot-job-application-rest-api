@@ -55,4 +55,25 @@ public class ReviewController {
 
         return ResponseEntity.ok(review);
     }
+
+    // Update Review By Company Id REST API
+    @PutMapping("/{reviewId}")
+    public ResponseEntity<String> updateReviewByCompanyId(
+            @PathVariable("companyId") Long companyId,
+            @PathVariable("reviewId") Long reviewId,
+            @RequestBody Review review
+    ) {
+        Boolean isReviewUpdated = reviewService.updateReviewByCompanyId(
+                companyId, reviewId, review
+        );
+
+        if(isReviewUpdated) {
+            return ResponseEntity.ok("Review Updated Successfully");
+        }
+
+        return new ResponseEntity<>(
+                "Review Not Updated", HttpStatus.NOT_FOUND
+        );
+
+    }
 }
