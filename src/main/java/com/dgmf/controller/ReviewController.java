@@ -29,7 +29,7 @@ public class ReviewController {
             @PathVariable("companyId") Long companyId,
             @RequestBody Review review
     ) {
-        Boolean isReviewSaved = reviewService.addReviewByCompanyId(companyId, review);
+        boolean isReviewSaved = reviewService.addReviewByCompanyId(companyId, review);
 
         if(isReviewSaved) {
             return new ResponseEntity<>(
@@ -63,7 +63,7 @@ public class ReviewController {
             @PathVariable("reviewId") Long reviewId,
             @RequestBody Review review
     ) {
-        Boolean isReviewUpdated = reviewService.updateReviewByCompanyId(
+        boolean isReviewUpdated = reviewService.updateReviewByCompanyId(
                 companyId, reviewId, review
         );
 
@@ -75,5 +75,24 @@ public class ReviewController {
                 "Review Not Updated", HttpStatus.NOT_FOUND
         );
 
+    }
+
+    // Delete Review By Company Id REST API
+    @DeleteMapping("/{reviewId}")
+    public ResponseEntity<String> deleteReview(
+            @PathVariable("companyId") Long companyId,
+            @PathVariable("reviewId") Long reviewId
+    ) {
+        boolean isReviewDeleted = reviewService.deleteReviewByCompanyId(
+                companyId, reviewId
+        );
+
+        if(isReviewDeleted) {
+            return ResponseEntity.ok("Review Deleted Successfully");
+        }
+
+        return new ResponseEntity<>(
+                "Review Not Deleted", HttpStatus.NOT_FOUND
+        );
     }
 }
